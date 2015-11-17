@@ -9,11 +9,12 @@ rule Bootstrap
         a.setState( State.FINISHED );
 end
 
-//rule "A to B"
-//    when
-//        State(name == "A", state == State.FINISHED )
+rule "A to B"
+    when
+        State(name == "A", state == State.FINISHED )
 //        b : State(name == "B", state == State.NOTRUN )
-//    then
+    then
+        System.out.println("ok");
 //        System.out.println(b.getName() + " finished" );
 //        b.setState( State.FINISHED );
-//end
+end
