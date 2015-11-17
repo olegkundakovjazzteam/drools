@@ -18,5 +18,6 @@ public class Main {
         ksession.insert(new Fib(50));
 
         ksession.fireAllRules();
+
     }
 }
