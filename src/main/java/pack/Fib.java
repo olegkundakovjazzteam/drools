@@ -1,7 +1,6 @@
 package pack;
 
 /**
- * Created by JazzTeamUser on 16.11.2015.
  */
 public class Fib {
     private int sequence;
