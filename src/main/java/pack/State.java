@@ -20,6 +20,10 @@ public class State {
         this.state = state;
     }
 
+    public State(String name) {
+        this.name = name;
+    }
+
     public State() {
     }
 
