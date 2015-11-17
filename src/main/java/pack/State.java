@@ -15,10 +15,10 @@ public class State {
     private String name;
     private int state;
 
-    public State(String name, int state) {
-        this.name = name;
-        this.state = state;
-    }
+//    public State(String name, int state) {
+//        this.name = name;
+//        this.state = state;
+//    }
 
     public State(String name) {
         this.name = name;
@@ -40,7 +40,9 @@ public class State {
         return state;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setState(final int newState) {
+        int oldState = this.state;
+        this.state = newState;
+        this.changes.firePropertyChange("state", oldState, newState);
     }
 }
