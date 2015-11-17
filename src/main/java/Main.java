@@ -28,6 +28,5 @@ public class Main {
 
         ksession.dispose();
 
-        ksession.fireAllRules();
     }
 }
