@@ -1,8 +1,34 @@
+import pack.Cashflow;
+import pack.TypedCashflow;
 
 
-rule "Rule 01"
+
+//rule "Rule 03"
+//    when
+//         $number : Number( )
+//        not  Number( intValue < $number.intValue )
+//    then
+//        System.out.println("Number found with value: " + $number.intValue() );
+//        retract( $number );
+//end
+
+//rule "Rule 04"
+//    when
+//        $cashflow : Cashflow( $date : date, $amount : amount )
+//        not Cashflow( date < $date)
+//    then
+//        System.out.println("Cashflow: "+$date+" :: "+$amount);
+//        retract($cashflow);
+//end
+
+rule "Rule 05"
     when
-        eval( 1==1 )
+        $cashflow : TypedCashflow( $date : date,
+                                   $amount : amount,
+                                   type == TypedCashflow.CREDIT )
+        not TypedCashflow( date < $date,
+                           type == TypedCashflow.CREDIT )
     then
-        System.out.println( "Rule 01 Works" );
+        System.out.println($cashflow.toString());
+        retract($cashflow);
 end
