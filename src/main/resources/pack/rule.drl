@@ -1,5 +1,7 @@
 import pack.Cashflow;
 import pack.TypedCashflow;
+import pack.Account;
+import pack.AllocatedCashflow;
 
 
 
@@ -21,14 +23,44 @@ import pack.TypedCashflow;
 //        retract($cashflow);
 //end
 
-rule "Rule 05"
+//rule "Rule 05"
+//    when
+//        $cashflow : TypedCashflow( $date : date,
+//                                   $amount : amount,
+//                                   type == TypedCashflow.CREDIT )
+//        not TypedCashflow( date < $date,
+//                           type == TypedCashflow.CREDIT )
+//    then
+//        System.out.println($cashflow.toString());
+//        retract($cashflow);
+//end
+
+rule "Rule 06 - Credit"
     when
-        $cashflow : TypedCashflow( $date : date,
-                                   $amount : amount,
-                                   type == TypedCashflow.CREDIT )
-        not TypedCashflow( date < $date,
-                           type == TypedCashflow.CREDIT )
+        $cashflow : AllocatedCashflow( $account : account,
+                                       $date : date,
+                                       $amount : amount,
+                                       type == TypedCashflow.CREDIT )
+        not AllocatedCashflow( account == $account, date < $date)
     then
-        System.out.println($cashflow.toString());
+        System.out.println("Credit: " + $date + " :: " + $amount);
+        $account.setBalance($account.getBalance()+$amount);
+        System.out.println("Account: " + $account.getAccountNo() +
+                           " - new balance: " + $account.getBalance());
+        retract($cashflow);
+end
+
+rule "Rule 06 - Debit"
+    when
+        $cashflow : AllocatedCashflow( $account : account,
+                            $date : date,
+                            $amount : amount,
+                            type == TypedCashflow.DEBIT )
+        not AllocatedCashflow( account == $account, date < $date)
+    then
+        System.out.println("Debit: " + $date + " :: " + $amount);
+        $account.setBalance($account.getBalance() - $amount);
+        System.out.println("Account: " + $account.getAccountNo() +
+                           " - new balance: " + $account.getBalance());
         retract($cashflow);
 end
