@@ -1,7 +1,6 @@
 import pack.RuleRunner;
 
 /**
- * Created by JazzTeamUser on 13.11.2015.
  */
 public class Main {
     //    public static void main(String[] t) {
